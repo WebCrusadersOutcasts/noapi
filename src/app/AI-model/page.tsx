@@ -24,38 +24,24 @@ const CrimeMap: React.FC = () => {
         }
     }, [crimeData]);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            import('leaflet').then((L) => {
-                // Code that requires the 'L' object should be placed here
-                plotMap();
-            });
-            import('leaflet/dist/leaflet.css');
-        }
-    }, []);
-
     const plotMap = () => {
-        const crimeLocations = crimeData.filter(location => location.Type === 'Predicted Crime Location');
-        const policeStations = crimeData.filter(location => location.Type === 'Police Station');
+        // Initialize Mapbox map
+        mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [crimeData[0].Longitude, crimeData[0].Latitude], // Set initial center to first crime location
+            zoom: 10 // Adjust zoom level as needed
+        });
 
-        const crimeMarkers = crimeLocations.map(location => L.marker([location.Latitude, location.Longitude]).bindPopup('Predicted Crime Location'));
-        const policeMarkers = policeStations.map(location => L.marker([location.Latitude, location.Longitude]).bindPopup('Police Station'));
-
-        const map = L.map('map').setView([crimeLocations[0].Latitude, crimeLocations[0].Longitude], 10);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        const crimeLayer = L.layerGroup(crimeMarkers);
-        const policeLayer = L.layerGroup(policeMarkers);
-
-        const overlayMaps = {
-            "Predicted Crime Locations": crimeLayer,
-            "Police Stations": policeLayer
-        };
-
-        L.control.layers({}, overlayMaps).addTo(map);
+        // Add crime markers to the map
+        crimeData.forEach(location => {
+            const popup = new mapboxgl.Popup().setText('Predicted Crime Location');
+            new mapboxgl.Marker()
+                .setLngLat([location.Longitude, location.Latitude])
+                .setPopup(popup)
+                .addTo(map);
+        });
     };
 
     return (
