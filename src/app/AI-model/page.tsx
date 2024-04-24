@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
 
@@ -48,7 +47,8 @@ const CrimeMap: React.FC = () => {
             "Police Stations": policeLayer
         };
 
-        L.control.layers(null, overlayMaps).addTo(map);
+        // Pass empty object as first argument
+        L.control.layers({}, overlayMaps).addTo(map);
     };
 
     return (
