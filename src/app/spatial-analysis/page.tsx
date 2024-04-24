@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from 'react';
-import Plot from 'react-plotly.js';
+import React, { useState, useEffect } from 'react';
 
 const CrimeVisualizationDashboard: React.FC = () => {
   const [selectedDistrict, setSelectedDistrict] = useState<string>('');
+  const [crimeMapUrl, setCrimeMapUrl] = useState<string>('');
+  const [crimeHeatmapUrl, setCrimeHeatmapUrl] = useState<string>('');
 
   const updateVisualizations = () => {
     const district = selectedDistrict;
@@ -18,14 +19,18 @@ const CrimeVisualizationDashboard: React.FC = () => {
           alert(data.message);
           return;
         }
-        // Assuming the JSON object has properties 'crime_map' and 'crime_heatmap' with Plotly JSON data
-        // You can directly use 'Plot' component from 'react-plotly.js' to render the plots
+        setCrimeMapUrl(data.crime_map.image);
+        setCrimeHeatmapUrl(data.crime_heatmap.image);
       })
       .catch(error => {
         console.error('Error loading the data:', error);
         alert('Failed to load data.');
       });
   };
+
+  useEffect(() => {
+    updateVisualizations();
+  }, [selectedDistrict]); // Update visualizations when selected district changes
 
   return (
     <div>
@@ -77,8 +82,14 @@ const CrimeVisualizationDashboard: React.FC = () => {
         <option value="Vijayapur">Vijayapur</option>
         <option value="Yadgir">Yadgir</option>
       </select>
-      <div id="map-container" style={{ width: '1000px', height: '800px' }}></div>
-      <div id="heatmap-container" style={{ width: '1000px', height: '800px' }}></div>
+      <div>
+        <h2>Crime Map</h2>
+        {crimeMapUrl && <img src={crimeMapUrl} alt="Crime Map" style={{ width: '100%', height: 'auto' }} />}
+      </div>
+      <div>
+        <h2>Crime Heatmap</h2>
+        {crimeHeatmapUrl && <img src={crimeHeatmapUrl} alt="Crime Heatmap" style={{ width: '100%', height: 'auto' }} />}
+      </div>
     </div>
   );
 };
