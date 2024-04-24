@@ -1,8 +1,4 @@
-"use client";
 import React, { useEffect, useState } from 'react';
-import L from 'leaflet';
-
-import 'leaflet/dist/leaflet.css';
 
 const CrimeMap: React.FC = () => {
     const [crimeData, setCrimeData] = useState<any[]>([]);
@@ -27,6 +23,16 @@ const CrimeMap: React.FC = () => {
         }
     }, [crimeData]);
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            import('leaflet').then((L) => {
+                // Code that requires the 'L' object should be placed here
+                plotMap();
+            });
+            import('leaflet/dist/leaflet.css');
+        }
+    }, []);
+
     const plotMap = () => {
         const crimeLocations = crimeData.filter(location => location.Type === 'Predicted Crime Location');
         const policeStations = crimeData.filter(location => location.Type === 'Police Station');
@@ -48,7 +54,6 @@ const CrimeMap: React.FC = () => {
             "Police Stations": policeLayer
         };
 
-        // Pass empty object as first argument
         L.control.layers({}, overlayMaps).addTo(map);
     };
 
