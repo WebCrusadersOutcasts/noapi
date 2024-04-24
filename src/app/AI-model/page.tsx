@@ -1,6 +1,7 @@
-"use client";
 import React, { useEffect, useState } from 'react';
-import Plotly from 'plotly.js-dist';
+import L from 'leaflet';
+
+import 'leaflet/dist/leaflet.css';
 
 const CrimeMap: React.FC = () => {
     const [crimeData, setCrimeData] = useState<any[]>([]);
@@ -29,45 +30,24 @@ const CrimeMap: React.FC = () => {
         const crimeLocations = crimeData.filter(location => location.Type === 'Predicted Crime Location');
         const policeStations = crimeData.filter(location => location.Type === 'Police Station');
 
-        const crimeLat = crimeLocations.map(location => location.Latitude);
-        const crimeLon = crimeLocations.map(location => location.Longitude);
+        const crimeMarkers = crimeLocations.map(location => L.marker([location.Latitude, location.Longitude]).bindPopup('Predicted Crime Location'));
+        const policeMarkers = policeStations.map(location => L.marker([location.Latitude, location.Longitude]).bindPopup('Police Station'));
 
-        const policeLat = policeStations.map(location => location.Latitude);
-        const policeLon = policeStations.map(location => location.Longitude);
+        const map = L.map('map').setView([crimeLocations[0].Latitude, crimeLocations[0].Longitude], 10);
 
-        const mapData = [{
-            type: 'scattermapbox',
-            mode: 'markers',
-            lat: crimeLat,
-            lon: crimeLon,
-            marker: {
-                size: 10,
-                color: 'red',
-                opacity: 0.7
-            },
-            name: 'Predicted Crime Locations'
-        }, {
-            type: 'scattermapbox',
-            mode: 'markers',
-            lat: policeLat,
-            lon: policeLon,
-            marker: {
-                size: 10,
-                color: 'green',
-                opacity: 0.7
-            },
-            name: 'Police Stations'
-        }];
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-        const layout = {
-            title: 'Crime Locations and Police Stations',
-            mapbox: {
-                style: 'open-street-map',
-                zoom: 10
-            }
+        const crimeLayer = L.layerGroup(crimeMarkers);
+        const policeLayer = L.layerGroup(policeMarkers);
+
+        const overlayMaps = {
+            "Predicted Crime Locations": crimeLayer,
+            "Police Stations": policeLayer
         };
 
-        Plotly.newPlot('map', mapData, layout);
+        L.control.layers(null, overlayMaps).addTo(map);
     };
 
     return (
