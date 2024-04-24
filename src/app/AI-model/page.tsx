@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+
 
 const CrimeMap: React.FC = () => {
     const [crimeData, setCrimeData] = useState<any[]>([]);
