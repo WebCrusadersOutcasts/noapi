@@ -21,6 +21,7 @@
     "plotly.js-dist": "^2.31.0",
     "react": "^18",
     "react-dom": "^18",
+    "leaflet": "^1.7.1",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
