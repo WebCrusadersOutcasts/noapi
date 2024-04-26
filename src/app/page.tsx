@@ -22,30 +22,30 @@ export default function Home() {
       link: "/Trendofoccurance",
       image: "/images/third.png",
     },
+    // {
+    //   name: "4.Prediction of criminal behavior",
+    //   description: "Predicting the chances of any accused individual being a criminal as well as representing crimes by categories",
+    //   link: "/criminalbehavior",
+    //   image: "/images/crime analysis.png",
+    // },
     {
-      name: "4.Prediction of criminal behavior",
-      description: "Predicting the chances of any accused individual being a criminal as well as representing crimes by categories",
-      link: "/criminalbehavior",
-      image: "/images/crime analysis.png",
-    },
-    {
-      name: "5.Prediction of vulnerable populations",
+      name: "4.Prediction of vulnerable populations",
       description: "Predicting the chances of a crime occurring in any district as well as representing crime occurrence by categories",
       link: "/vulnerablepopulation",
       image: "/images/vul pop.png",
     },
     {
-      name: "6.Beat wise ranking of crimes",
+      name: "5.Beat wise ranking of crimes",
       description: "Ranking of beats by highest crime rate in selected district and year",
       link: "/beat-wise",
       image: "/images/beat du.png",
     },
-    {
-      name: "7.AI Model",
-      description: "AI model that predicts spots where crimes are most likely to occur as well as police stations and hospitals nearby",
-      link: "/AI-model",
-      image: "/images/Ai pre.png",
-    },
+    // {
+    //   name: "7.AI Model",
+    //   description: "AI model that predicts spots where crimes are most likely to occur as well as police stations and hospitals nearby",
+    //   link: "/AI-model",
+    //   image: "/images/Ai pre.png",
+    // },
   ];
 
   return (
