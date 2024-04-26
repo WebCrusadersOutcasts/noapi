@@ -5,10 +5,46 @@ import { Grid, Typography } from "@mui/material";
 export default function Home() {
   const toolsList = [
     {
-      name: "Boston House Price Prection",
+      name: "1.Spatial Analysis",
       description: "Plottings of Crime locations and respective heat maps",
       link: "/spatial-analysis",
       image: "/images/spatial_analysis.png",
+    },
+    {
+      name: "2.Beat wise distribution of crimes",
+      description: "Analysis and visual representation of crime in specific beats",
+      link: "/beat-wise",
+      image: "/images/Beat-Wise.png",
+    },
+    {
+      name: "3.Trend of occurrence of crimes",
+      description: "Analysis and graphical plotting of crimes chronologically and seasonally",
+      link: "/Trendofoccurance",
+      image: "/images/third.png",
+    },
+    {
+      name: "4.Prediction of criminal behavior",
+      description: "Predicting the chances of any accused individual being a criminal as well as representing crimes by categories",
+      link: "/criminalbehavior",
+      image: "/images/crime analysis.png",
+    },
+    {
+      name: "5.Prediction of vulnerable populations",
+      description: "Predicting the chances of a crime occurring in any district as well as representing crime occurrence by categories",
+      link: "/vulnerablepopulation",
+      image: "/images/vul pop.png",
+    },
+    {
+      name: "6.Beat wise ranking of crimes",
+      description: "Ranking of beats by highest crime rate in selected district and year",
+      link: "/beat-wise",
+      image: "/images/beat du.png",
+    },
+    {
+      name: "7.AI Model",
+      description: "AI model that predicts spots where crimes are most likely to occur as well as police stations and hospitals nearby",
+      link: "/AI-model",
+      image: "/images/Ai pre.png",
     },
   ];
 
